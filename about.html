@@ -16,7 +16,6 @@
             </div>
                 <button class="btn btn-light" onclick="navigate()"> Navigate</button>
         </div>
-
     </div>
 
     <script>
@@ -36,8 +35,9 @@
             {
                 let userWord = event.results[0][0].transcript;
                 let index = navigations.findIndex(n => (userWord.includes(n.word)));
-                alert("You will now be redirected to" + " " + navigations[index].word);
-                windows.location.href = navigations[index].page;
+                alert("You will now be redirected to" + " " + navigations[index].word + " " + "Page");
+                window.location.href = navigations[index].page;
+                //window.open(navigations[index].page, "_self"); //window.open('dashboard.html', '_self')
             }
             
             recognition.onspeechend = function()
