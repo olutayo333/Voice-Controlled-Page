@@ -5,19 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="voiceControlledPage.js"> </script>
+    <!-- <script src="voiceControlledPage.js"> </script> -->
 </head>
 <body>
     <div class="container-fluid bg-danger">
-        <div class="row" style="height: 70vh">
+        <div class="row" style="height: 100vh">
             <div class="col-lg-7 mx-auto mt-5 pt-5" >
                 <h1 class="col-7 mx-auto mt-5 pt-5 text-center "> WELCOME TO THE HOME PAGE</h1>
                 <p class="text-center">We want to implement a voice controlled system</p>
+                <button class="btn btn-light ms-5 col-8" onclick="navigate()"> Navigate</button>
             </div>
-                <button class="btn btn-light" onclick="navigate()"> Navigate</button>
         </div>
 
     </div>
+
+    <script>
+        
+        var navigations = [
+            {word:"home", page: "index.html"},
+            {word:"contact", page: "contact.html"},
+            {word:"about", page: "about.html"},
+            {word:"index", page: "index.html"},
+            {word:"phone", page: "contact.html"},
+            {word:"where", page: "contact.html"},
+        ]
+
+        function navigate()
+        {
+            var SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition
+            var recognition = new SpeechRecognition();
+
+            recognition.continous = false;
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+            
+            recognition.lang ="en-US";
+            recognition.start();
+
+            recognition.onresult = function(event)
+            {
+                let userWord = event.results[0][0].transcript;
+                let index = navigations.findIndex(n => (userWord.includes(n.word)));
+                alert("You will now be redirected to" + " " + navigations[index].word);
+                windows.location.href = navigations[index].page;
+            }
+            
+            recognition.onspeechend = function()
+            {recognition.stop();}
+        }
+
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

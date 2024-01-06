@@ -13,6 +13,10 @@
             var SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition
             var recognition = new SpeechRecognition();
 
+            recognition.continous = false;
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+            
             recognition.lang ="en-US";
             recognition.start();
 
@@ -20,6 +24,7 @@
             {
                 let userWord = event.results[0][0].transcript;
                 let index = navigations.findIndex(n => (userWord.includes(n.word)));
+                alert("You will now be redirected to" + " " + navigations[index].word);
                 windows.location.href = navigations[index].page;
             }
             
