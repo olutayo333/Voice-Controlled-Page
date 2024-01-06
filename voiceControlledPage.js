@@ -25,7 +25,7 @@
                 let userWord = event.results[0][0].transcript;
                 let index = navigations.findIndex(n => (userWord.includes(n.word)));
                 alert("You will now be redirected to" + " " + navigations[index].word + " " + "PAge");
-                windows.location.href = navigations[index].page;
+                window.location.href = navigations[index].page;
             }
             
             recognition.onspeechend = function()
